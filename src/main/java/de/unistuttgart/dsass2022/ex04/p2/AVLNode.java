@@ -14,6 +14,12 @@ public class AVLNode<T extends Comparable<T>> implements IAVLNode<T> {
 		this.value = null;
 	}
 
+	public AVLNode(T value) {
+		this.left = null;
+		this.right = null;
+		this.value = value;
+	}
+
 	@Override
 	public void setValue(T val) {
 		this.value = val;

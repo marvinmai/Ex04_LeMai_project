@@ -16,4 +16,75 @@ import de.unistuttgart.dsass2022.ex04.p2.IAVLNode;
 
 public class AVLTreeTest {
 
+    /**
+     * Builds tree from Exercise 04 - 1).
+     * @return tree AVL1.
+     */
+    private AVLTree<Integer> getAVL1() {
+        AVLNode<Integer> node21 = new AVLNode<>(21);
+        AVLNode<Integer> node22 = new AVLNode<>(22);
+        AVLNode<Integer> node34 = new AVLNode<>(34);
+        AVLNode<Integer> node35 = new AVLNode<>(35);
+        AVLNode<Integer> node37 = new AVLNode<>(37);
+        AVLNode<Integer> node55 = new AVLNode<>(55);
+        AVLNode<Integer> node60 = new AVLNode<>(60);
+        AVLNode<Integer> node70 = new AVLNode<>(70);
+        AVLNode<Integer> node77 = new AVLNode<>(77);
+        AVLNode<Integer> node80 = new AVLNode<>(80);
+
+        node55.setLeftChild(node34);
+        node34.setLeftChild(node22);
+        node22.setLeftChild(node21);
+        node34.setRightChild(node37);
+        node37.setLeftChild(node35);
+
+        node55.setRightChild(node70);
+        node70.setLeftChild(node60);
+        node70.setRightChild(node77);
+        node77.setRightChild(node80);
+
+        return new AVLTree<>(node55);
+    }
+
+    /**
+     * Builds result tree from Exercise 04 - 1a).
+     * @return tree AVL2.
+     */
+    private AVLTree<Integer> getAVL2() {
+        AVLNode<Integer> node21 = new AVLNode<>(21);
+        AVLNode<Integer> node22 = new AVLNode<>(22);
+        AVLNode<Integer> node34 = new AVLNode<>(34);
+        AVLNode<Integer> node35 = new AVLNode<>(35);
+        AVLNode<Integer> node37 = new AVLNode<>(37);
+        AVLNode<Integer> node55 = new AVLNode<>(55);
+        AVLNode<Integer> node60 = new AVLNode<>(60);
+        AVLNode<Integer> node70 = new AVLNode<>(70);
+        AVLNode<Integer> node77 = new AVLNode<>(77);
+        AVLNode<Integer> node80 = new AVLNode<>(80);
+
+        AVLNode<Integer> node64 = new AVLNode<>(64);
+
+        node55.setLeftChild(node34);
+        node34.setLeftChild(node22);
+        node22.setLeftChild(node21);
+        node34.setRightChild(node37);
+        node37.setLeftChild(node35);
+
+        node55.setRightChild(node70);
+        node70.setLeftChild(node60);
+        node60.setRightChild(node64);
+        node70.setRightChild(node77);
+        node77.setRightChild(node80);
+
+        return new AVLTree<>(node55);
+    }
+
+    @Test
+    public void testTreeEquality() {
+        AVLTree<Integer> tree1 = getAVL1();
+        AVLTree<Integer> tree2 = getAVL2();
+        assertEquals(tree1, tree1);
+        assertNotEquals(tree1, tree2);
+    }
+
 }
