@@ -12,7 +12,7 @@ public interface IAVLTree<T extends Comparable<T>> {
 
 	/**
 	 * Inserts a node with the given element into the AVL-Tree. If the balance-property
-	 * of the tree gets violated, the neccessary rotations should be done to reestablish
+	 * of the tree gets violated, the necessary rotations should be done to reestablish
 	 * the balance.
 	 * 
 	 * @param t the element to be inserted

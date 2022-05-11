@@ -20,5 +20,10 @@ public class AVLTree<T extends Comparable<T>> implements IAVLTree<T> {
 	public IAVLNode<T> getRootNode() {
 		return this.root;
 	}
+
+	private boolean isBalanced() {
+
+		return false;
+	}
 	
 }
