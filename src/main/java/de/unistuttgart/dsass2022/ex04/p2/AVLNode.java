@@ -57,20 +57,6 @@ public class AVLNode<T extends Comparable<T>> implements IAVLNode<T> {
 
 	@Override
 	public int getBalance() {
-		return getHeight(left) - getHeight(right);
+		return balance;
 	}
-
-	private int getHeight() {
-		return getHeight(this);
-	}
-
-	private int getHeight(IAVLNode<T> node) {
-		if (node == null) {
-			return 0;
-		}
-		int leftHeight = getHeight(node.getLeftChild());
-		int rightHeight = getHeight(node.getRightChild());
-		return Integer.max(leftHeight, rightHeight) + 1;
-	}
-
 }

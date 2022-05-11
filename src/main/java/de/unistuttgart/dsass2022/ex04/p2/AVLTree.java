@@ -22,6 +22,7 @@ public class AVLTree<T extends Comparable<T>> implements IAVLTree<T> {
 	@Override
 	public void insert(T t) {
 		this.root = this.insert(this.root, t);
+
 	}
 
 	private IAVLNode<T> insert(IAVLNode<T> node, T t) {
@@ -43,11 +44,6 @@ public class AVLTree<T extends Comparable<T>> implements IAVLTree<T> {
 		return this.root;
 	}
 
-	private boolean isBalanced() {
-
-		return false;
-	}
-
 	public Iterator<T> iterator(TreeTraversalType traversalType) {
 		Iterator<T> iterator = null;
 		switch (traversalType) {
@@ -67,6 +63,18 @@ public class AVLTree<T extends Comparable<T>> implements IAVLTree<T> {
 		return iterator;
 	}
 
+	private int getNodeBalance(IAVLNode<T> node) {
+		return getHeight(node.getLeftChild()) - getHeight(node.getRightChild());
+	}
+
+	private int getHeight(IAVLNode<T> node) {
+		if (node == null) {
+			return 0;
+		}
+		int leftHeight = getHeight(node.getLeftChild());
+		int rightHeight = getHeight(node.getRightChild());
+		return Integer.max(leftHeight, rightHeight) + 1;
+	}
 
 	@Override
 	public boolean equals(Object other) {
