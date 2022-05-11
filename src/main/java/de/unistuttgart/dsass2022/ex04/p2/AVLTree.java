@@ -4,6 +4,7 @@ package de.unistuttgart.dsass2022.ex04.p2;
 import java.util.Iterator;
 
 import static de.unistuttgart.dsass2022.ex04.p2.TreeTraversalType.INORDER;
+import static de.unistuttgart.dsass2022.ex04.p2.TreeTraversalType.LEVELORDER;
 
 public class AVLTree<T extends Comparable<T>> implements IAVLTree<T> {
 
@@ -20,8 +21,21 @@ public class AVLTree<T extends Comparable<T>> implements IAVLTree<T> {
 
 	@Override
 	public void insert(T t) {
-		AVLNode<T> newNode = new AVLNode<>();
-		
+		this.root = this.insert(this.root, t);
+	}
+
+	private IAVLNode<T> insert(IAVLNode<T> node, T t) {
+		if (node == null) {
+			IAVLNode<T> newNode = new AVLNode<>();
+			newNode.setValue(t);
+			return newNode;
+		}
+		if (t.compareTo(node.getValue()) < 0) {
+			node.setLeftChild(this.insert(node.getLeftChild(), t));
+		} else if (t.compareTo(node.getValue()) > 0) {
+			node.setRightChild(this.insert(node.getRightChild(), t));
+		}
+		return node;
 	}
 
 	@Override
@@ -58,9 +72,9 @@ public class AVLTree<T extends Comparable<T>> implements IAVLTree<T> {
 	public boolean equals(Object other) {
 		boolean isEqual = true;
 		if (other instanceof AVLTree) {
-			AVLTree otherTree = (AVLTree) other;
-			Iterator thisIterator = iterator(INORDER);
-			Iterator otherIterator = otherTree.iterator(INORDER);
+			AVLTree<T> otherTree = (AVLTree) other;
+			Iterator<T> thisIterator = iterator(LEVELORDER);
+			Iterator<T> otherIterator = otherTree.iterator(LEVELORDER);
 			while (thisIterator.hasNext()) {
 				if (!otherIterator.hasNext()) {
 					isEqual = false;
