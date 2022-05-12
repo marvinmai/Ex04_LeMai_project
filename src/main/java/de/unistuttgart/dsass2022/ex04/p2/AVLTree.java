@@ -4,7 +4,6 @@ package de.unistuttgart.dsass2022.ex04.p2;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import static de.unistuttgart.dsass2022.ex04.p2.TreeTraversalType.INORDER;
 import static de.unistuttgart.dsass2022.ex04.p2.TreeTraversalType.LEVELORDER;
 
 public class AVLTree<T extends Comparable<T>> implements IAVLTree<T> {
@@ -22,69 +21,40 @@ public class AVLTree<T extends Comparable<T>> implements IAVLTree<T> {
 	@Override
 	public void insert(T t) {
 		this.root = this.insert(this.root, t);
-
 	}
 
-	private boolean rebalance = false;
-	private IAVLNode<T> insert(IAVLNode<T> n, T k) {
-		IAVLNode<T> tmp;
-		if (n.getValue().compareTo(k) == 0){ // schon vorhanden?
-			rebalance = false; // globale Variable
-			return n;
-		} else if (n.getValue().compareTo(k) < 0) { // nach rechts gehen
-			if (n.getRightChild() != null) {
-				// rechts einfügen (rekursiv):
-				n.setRightChild(insert(n.getRightChild(), k));
-				// ggf. re-balancieren
-				if (n != root && rebalance){
-					switch (n.getBalance()) {
-						case -1: // Re-balancieren
-							if (n.getRightChild().getBalance() == -1) {
-							// einfache Rotation nach links
-							tmp = rotateLeft(n);
-							tmp.getLeftChild().setBalance(0);
-						} else {
-							// doppelte Rotation (rechts, links)
-							int b = n.getRightChild().getLeftChild().getBalance();
-							n.setRightChild(rotateRight(n.getRightChild()));
-							tmp = rotateLeft(n);
-							tmp.getRightChild().setBalance((b == 1) ? -1 : 0);
-							tmp.getLeftChild().setBalance((b == -1) ? 1 : 0);
-						}
-							tmp.setBalance(0);
-							rebalance = false;
-							return tmp;
-						case 0:
-							// Balance neu berechnen
-							n.setBalance(-1);
-							return n;
-							// Rebalance bleibt true
-						case 1:
-							// Balance neu berechnen
-							n.setBalance (0);
-							rebalance = false;
-							return n;
-					}
-				}
-				else {
-					return n;
-				}
-			} else {
-				// neuen Blattknoten rechts erzeugen
-				AVLNode<T> newNode = new AVLNode<T>(k);
-				newNode.setLeftChild(null);
-				newNode.setRightChild(null);
-				n.setRightChild(newNode);
-				n.setBalance(n.getBalance() - 1);
-				rebalance = (n.getBalance() <= -1);
-				return n;
-			}
-		} else {
-			// links einfügen (symmetrisch)
-			n.setBalance(n.getBalance() + 1);
-			rebalance = (n.getBalance() >= 1);
+	private IAVLNode<T> insert(IAVLNode<T> node, T key) {
+		if (node == null) {
+			return new AVLNode<>(key);
 		}
-		return n;
+		if (key.compareTo(node.getValue()) < 0) {
+			node.setLeftChild(insert(node.getLeftChild(), key));
+		} else if (key.compareTo(node.getValue()) > 0) {
+			node.setRightChild(insert(node.getRightChild(), key));
+		} else {
+			return node;
+		}
+
+		// Left-Left
+		if (node.getBalance() > 1 && node.getLeftChild().isBiggerThan(key)) {
+			return rotateRight(node);
+		}
+		// Right-Right
+		if (node.getBalance() < -1 && node.getRightChild().isSmallerThan(key)) {
+			return rotateLeft(node);
+		}
+		// Left-Right
+		if (node.getBalance() > 1 && node.getLeftChild().isSmallerThan(key)) {
+			node.setLeftChild(rotateLeft(node.getLeftChild()));
+			return rotateRight(node);
+		}
+		// Right-Left
+		if (node.getBalance() < -1 && node.getRightChild().isBiggerThan(key)) {
+			node.setRightChild(rotateRight(node.getRightChild()));
+			return rotateLeft(node);
+		}
+
+		return node;
 	}
 
 	private IAVLNode<T> rotateLeft(IAVLNode<T> n) {

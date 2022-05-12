@@ -62,4 +62,7 @@ public interface IAVLNode<T extends Comparable<T>> {
 	 */
 	public int getHeight();
 
+	public boolean isBiggerThan(T other);
+
+	public boolean isSmallerThan(T other);
 }

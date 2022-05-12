@@ -95,7 +95,9 @@ public class AVLTreeTest {
         AVLTree<Integer> treeAVL1 = getAVL1();
         AVLTree<Integer> treeAVL2 = getAVL2();
 
+        System.out.println("INSERTING 64");
         treeAVL1.insert(64);
+        treeAVL1.print();
         assertEquals(treeAVL2, treeAVL1);
     }
 

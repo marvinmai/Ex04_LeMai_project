@@ -73,4 +73,14 @@ public class AVLNode<T extends Comparable<T>> implements IAVLNode<T> {
 		int rightHeight = getHeight(node.getRightChild());
 		return Integer.max(leftHeight, rightHeight) + 1;
 	}
+
+	@Override
+	public boolean isBiggerThan(T other) {
+		return value.compareTo(other) > 0;
+	}
+
+	@Override
+	public boolean isSmallerThan(T other) {
+		return value.compareTo(other) < 0;
+	}
 }
