@@ -135,6 +135,15 @@ public class AVLTreeTest {
     }
 
     /**
+     * Test to print a tree - primarily for easier debugging.
+     */
+    @Test
+    public void testTreePrinting() {
+        AVLTree<Integer> tree = getAVL1();
+        tree.print();
+    }
+
+    /**
      * Exercise 1b: Tests insertion of 20 into AVL2, results in AVL3.
      */
     @Test
@@ -142,7 +151,12 @@ public class AVLTreeTest {
         AVLTree<Integer> treeAVL2 = getAVL2();
         AVLTree<Integer> treeAVL3 = getAVL3();
 
+        treeAVL2.print();
+
+        System.out.println("INSERTING 20");
         treeAVL2.insert(20);
+        treeAVL2.print();
+
         assertEquals(treeAVL3, treeAVL2);
     }
 

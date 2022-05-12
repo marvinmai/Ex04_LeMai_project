@@ -12,6 +12,7 @@ public class IteratorLevelorder<T extends Comparable<T>> implements Iterator<T> 
     Queue<T> queue = new LinkedList<>();
 
     public IteratorLevelorder(IAVLNode<T> root) {
+        if (root == null) return;
         this.root = root;
         queue.add(root.getValue());
         visit(root);

@@ -56,4 +56,10 @@ public interface IAVLNode<T extends Comparable<T>> {
 	 */
 	public int getBalance();
 
+	/**
+	 * Calculates height of the node.
+	 * @return height of the node.
+	 */
+	public int getHeight();
+
 }
