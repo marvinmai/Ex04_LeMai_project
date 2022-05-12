@@ -35,20 +35,20 @@ public class AVLTree<T extends Comparable<T>> implements IAVLTree<T> {
 			return node;
 		}
 
-		// Left-Left
+		// case 1: Left-Left
 		if (node.getBalance() > 1 && node.getLeftChild().isBiggerThan(key)) {
 			return rotateRight(node);
 		}
-		// Right-Right
+		// case 3: Right-Right
 		if (node.getBalance() < -1 && node.getRightChild().isSmallerThan(key)) {
 			return rotateLeft(node);
 		}
-		// Left-Right
+		// case 2: Right-Left
 		if (node.getBalance() > 1 && node.getLeftChild().isSmallerThan(key)) {
 			node.setLeftChild(rotateLeft(node.getLeftChild()));
 			return rotateRight(node);
 		}
-		// Right-Left
+		// case4: Left-Right
 		if (node.getBalance() < -1 && node.getRightChild().isBiggerThan(key)) {
 			node.setRightChild(rotateRight(node.getRightChild()));
 			return rotateLeft(node);

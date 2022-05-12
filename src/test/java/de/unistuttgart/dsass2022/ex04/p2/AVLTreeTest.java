@@ -147,6 +147,7 @@ public class AVLTreeTest {
 
     /**
      * Exercise 1b: Tests insertion of 20 into AVL2, results in AVL3.
+     * Tests single right rotation, case left-left.
      */
     @Test
     public void insertTestWithRebalancing_insert20() {
@@ -162,4 +163,116 @@ public class AVLTreeTest {
         assertEquals(treeAVL3, treeAVL2);
     }
 
+    /**
+     * Builds result tree from Exercise 04 - 1b) after insertion of 36.
+     * @return tree AVL4.
+     */
+    private AVLTree<Integer> getAVL4() {
+        AVLNode<Integer> node21 = new AVLNode<>(21);
+        AVLNode<Integer> node22 = new AVLNode<>(22);
+        AVLNode<Integer> node34 = new AVLNode<>(34);
+        AVLNode<Integer> node35 = new AVLNode<>(35);
+        AVLNode<Integer> node37 = new AVLNode<>(37);
+        AVLNode<Integer> node55 = new AVLNode<>(55);
+        AVLNode<Integer> node60 = new AVLNode<>(60);
+        AVLNode<Integer> node70 = new AVLNode<>(70);
+        AVLNode<Integer> node77 = new AVLNode<>(77);
+        AVLNode<Integer> node80 = new AVLNode<>(80);
+        AVLNode<Integer> node64 = new AVLNode<>(64);
+        AVLNode<Integer> node20 = new AVLNode<>(20);
+
+        AVLNode<Integer> node36 = new AVLNode<>(36);
+
+
+        node55.setLeftChild(node34);
+        node34.setLeftChild(node21);
+        node21.setLeftChild(node20);
+        node21.setRightChild(node22);
+        node34.setRightChild(node36);
+        node36.setLeftChild(node35);
+        node36.setRightChild(node37);
+
+        node55.setRightChild(node70);
+        node70.setLeftChild(node60);
+        node60.setRightChild(node64);
+        node70.setRightChild(node77);
+        node77.setRightChild(node80);
+
+        return new AVLTree<>(node55);
+    }
+
+    /**
+     * Exercise 1b: Tests insertion of 36 into AVL3, results in AVL4.
+     * Tests double rotation (left-right), case 2: right-left.
+     */
+    @Test
+    public void insertTestWithRebalancing_insert36() {
+        AVLTree<Integer> treeAVL3 = getAVL3();
+        AVLTree<Integer> treeAVL4 = getAVL4();
+
+        treeAVL3.print();
+
+        System.out.println("INSERTING 36");
+        treeAVL3.insert(36);
+        treeAVL3.print();
+
+        assertEquals(treeAVL4, treeAVL3);
+    }
+
+    /**
+     * Builds result tree from Exercise 04 - 1b) after insertion of 78.
+     * @return tree AVL5.
+     */
+    private AVLTree<Integer> getAVL5() {
+        AVLNode<Integer> node21 = new AVLNode<>(21);
+        AVLNode<Integer> node22 = new AVLNode<>(22);
+        AVLNode<Integer> node34 = new AVLNode<>(34);
+        AVLNode<Integer> node35 = new AVLNode<>(35);
+        AVLNode<Integer> node37 = new AVLNode<>(37);
+        AVLNode<Integer> node55 = new AVLNode<>(55);
+        AVLNode<Integer> node60 = new AVLNode<>(60);
+        AVLNode<Integer> node70 = new AVLNode<>(70);
+        AVLNode<Integer> node77 = new AVLNode<>(77);
+        AVLNode<Integer> node80 = new AVLNode<>(80);
+        AVLNode<Integer> node64 = new AVLNode<>(64);
+        AVLNode<Integer> node20 = new AVLNode<>(20);
+        AVLNode<Integer> node36 = new AVLNode<>(36);
+
+        AVLNode<Integer> node78 = new AVLNode<>(78);
+
+
+        node55.setLeftChild(node34);
+        node34.setLeftChild(node21);
+        node21.setLeftChild(node20);
+        node21.setRightChild(node22);
+        node34.setRightChild(node36);
+        node36.setLeftChild(node35);
+        node36.setRightChild(node37);
+
+        node55.setRightChild(node70);
+        node70.setLeftChild(node60);
+        node60.setRightChild(node64);
+        node70.setRightChild(node78);
+        node78.setLeftChild(node77);
+        node78.setRightChild(node80);
+
+        return new AVLTree<>(node55);
+    }
+
+    /**
+     * Exercise 1b: Tests insertion of 78 into AVL4, results in AVL5.
+     * Tests double rotation (right-left), case 4: left-right.
+     */
+    @Test
+    public void insertTestWithRebalancing_insert78() {
+        AVLTree<Integer> treeAVL4 = getAVL4();
+        AVLTree<Integer> treeAVL5 = getAVL5();
+
+        treeAVL4.print();
+        System.out.println("INSERTING 78");
+        treeAVL4.insert(78);
+        treeAVL4.print();
+
+        assertEquals(treeAVL5, treeAVL4);
+    }
 }
